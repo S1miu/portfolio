@@ -2723,21 +2723,16 @@
                 imgEl.setAttribute('onclick', "openLightbox('" + imgHref + "')");
                 group.appendChild(imgEl);
             }
-            // Create three contour layers matching project cards
-            const inner = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            inner.setAttribute('d', baseD);
-            inner.setAttribute('class', 'contour-path contour-inner');
-            inner.setAttribute('style', 'transform: scale(1);');
-            group.appendChild(inner);
+            // Create two contour layers (skip the original inner layer)
             const mid = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             mid.setAttribute('d', baseD);
             mid.setAttribute('class', 'contour-path contour-mid');
-            mid.setAttribute('style', 'transform: scale(1.02); opacity: 0.5;');
+            mid.setAttribute('style', 'transform: scale(1.02); opacity: 0.6;');
             group.appendChild(mid);
             const outer = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             outer.setAttribute('d', baseD);
             outer.setAttribute('class', 'contour-path contour-outer');
-            outer.setAttribute('style', 'transform: scale(1.04); opacity: 0.3;');
+            outer.setAttribute('style', 'transform: scale(1.04); opacity: 0.35;');
             group.appendChild(outer);
         }
 
