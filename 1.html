@@ -2904,20 +2904,38 @@
     </script>
     <script>
         // Deferred YouTube iframe loader: sets src at runtime with origin param to avoid player config errors.
+        // Enhanced to handle dynamically injected content (MutationObserver).
         (function(){
             function setYouTubeSrc(iframe){
                 try{
+                    if(!iframe || iframe.dataset._ytLoaded) return;
                     var src = iframe.getAttribute('data-youtube-src');
                     if(!src) return;
                     var url = new URL(src, window.location.href);
                     if(!url.searchParams.has('enablejsapi')) url.searchParams.set('enablejsapi','1');
                     url.searchParams.set('origin', location.origin);
                     iframe.src = url.toString();
+                    iframe.dataset._ytLoaded = '1';
                 }catch(e){ console.warn('YouTube deferred load failed', e); }
             }
+
+            function processAll(){
+                document.querySelectorAll('.deferred-youtube').forEach(function(ifr){ setYouTubeSrc(ifr); });
+            }
+
             document.addEventListener('DOMContentLoaded', function(){
-                var nodes = document.querySelectorAll('.deferred-youtube');
-                nodes.forEach(function(ifr){ setYouTubeSrc(ifr); });
+                processAll();
+                var mo = new MutationObserver(function(mutations){
+                    mutations.forEach(function(m){
+                        m.addedNodes.forEach(function(node){
+                            if(node.nodeType !== 1) return;
+                            if(node.matches && node.matches('.deferred-youtube')) setYouTubeSrc(node);
+                            var els = node.querySelectorAll && node.querySelectorAll('.deferred-youtube');
+                            if(els && els.length) els.forEach(setYouTubeSrc);
+                        });
+                    });
+                });
+                mo.observe(document.body, { childList: true, subtree: true });
             });
         })();
     </script>
