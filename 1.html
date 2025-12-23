@@ -244,6 +244,18 @@
         /* Ensure the About portrait has no extra effects */
         .about-portrait { filter: none !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
         .about-portrait:hover { transform: none !important; }
+        /* === Make About portrait and contours fully static === */
+        /* Disable transitions and pointer interactions so the portrait contour never changes */
+        #page-about .about-svg-image, #page-about .about-contour, #page-about .about-silhouette {
+            transition: none !important;
+            animation: none !important;
+            will-change: auto !important;
+            transform: none !important;
+            opacity: 1 !important;
+            pointer-events: auto; /* allow lightbox click but no hover effects */
+        }
+        /* Prevent hover color changes on outlines */
+        #page-about .about-portrait-wrapper:hover .about-contour { stroke: rgba(255,255,255,0.12) !important; filter: none !important; }
 
         /* waterRipple keyframes left in-place but pseudo-elements are disabled above */
 
