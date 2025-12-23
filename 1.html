@@ -244,18 +244,6 @@
         /* Ensure the About portrait has no extra effects */
         .about-portrait { filter: none !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
         .about-portrait:hover { transform: none !important; }
-        /* === Make About portrait and contours fully static === */
-        /* Disable transitions and pointer interactions so the portrait contour never changes */
-        #page-about .about-svg-image, #page-about .about-contour, #page-about .about-silhouette {
-            transition: none !important;
-            animation: none !important;
-            will-change: auto !important;
-            transform: none !important;
-            opacity: 1 !important;
-            pointer-events: auto; /* allow lightbox click but no hover effects */
-        }
-        /* Prevent hover color changes on outlines */
-        #page-about .about-portrait-wrapper:hover .about-contour { stroke: rgba(255,255,255,0.12) !important; filter: none !important; }
 
         /* waterRipple keyframes left in-place but pseudo-elements are disabled above */
 
@@ -2627,8 +2615,7 @@
 		const rings = [];
         // background ring radii: increased spacing to make the overall ring system larger
         const bgRings = Array.from({ length: 12 }, (_, i) => 260 + i * 55);
-        // Use a fixed seed so About contour generation is deterministic across refreshes
-        const globalBaseOffset = 42; // previously Math.random() * 100
+		const globalBaseOffset = Math.random() * 100;
 
         // Concentric fillers to match the reference backdrop (scaled up)
         [75, 125, 169, 213, 256, 306, 356, 406, 456, 506].forEach((r, idx) => {
