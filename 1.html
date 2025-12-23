@@ -1,40 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-                                        <defs>
-                                            <clipPath id="clip-about">
-                                                <path d="M30 36 C 120 18, 380 18, 470 36 C 495 100, 495 300, 470 364 C 380 386, 120 386, 30 364 C 5 300, 5 100, 30 36 Z" />
-                                            </clipPath>
-                                        </defs>
-                                        <g id="about-contours" clip-path="url(#clip-about)">
-                theme: {
-                    extend: {
-                        colors: {
-                            brand: '#00ffcc',
-                            bgdeep: '#050505',
-                        },
-                        fontFamily: {
-                            brand: ["'Courier New'", 'Courier', 'monospace'],
-                            body: ["'Helvetica Neue'", 'Helvetica', 'Arial', 'sans-serif'],
-                        },
-                        letterSpacing: {
-                            wide4: '0.25em',
-                        },
-                    },
-                },
-                safelist: [
-                    { pattern: /text-(white|gray|emerald)-(100|200|300|400|500|600|700|800|900)/ },
-                    { pattern: /(bg|border)-(gray|emerald|white)-(100|200|300|400|500|600|700|800|900)/ },
-                    { pattern: /(md:)?text-(xs|sm|base|lg|xl|2xl|3xl|4xl)/ },
-                    { pattern: /(md:)?grid-(cols-1|cols-2|cols-12)/ },
-                    'backdrop-blur-sm',
-                    'backdrop-blur-md',
-                ],
-            };
-        <script>
-            window.tailwind = window.tailwind || {};
-            window.tailwind.config = {
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono&family=IBM+Plex+Mono:wght@300;400;600&display=swap" rel="stylesheet">
     <script>
+        // small constants for About contour generation
         const aboutContourNumPoints = 260;
         const aboutContourWobbleAmp = 34;
     </script>
@@ -394,8 +366,10 @@
         }
         .project-module:hover .proj-title { color: #00ffcc; }
 
-        /* Ensure project titles are bold and left-aligned */
-        .proj-title, #page-project-detail h3, #page-project-detail h4, #page-project-detail h2 { font-weight: 700 !important; text-align: left; }
+        /* Ensure project titles are bold and left-aligned; allow subtitles to center */
+        .proj-title, #page-project-detail h3, #page-project-detail h4 { font-weight: 700 !important; text-align: left; }
+        /* Center subtitle on project detail pages */
+        #page-project-detail h2 { text-align: center; font-weight: 600; }
         /* Center the Urban Stray Cat title in the projects overview module */
         .project-module[data-project="project-cat"] .proj-title { text-align: center !important; }
 
@@ -425,6 +399,7 @@
         @media (max-width: 900px) {
             .project-meta { grid-template-columns: 1fr; gap: 12px 0; }
         }
+        /* previously added project-meta constraint removed to allow per-project wrapper classes */
         .proj-meta {
             font-family: 'Courier New', monospace; font-size: 0.75rem; color: #888;
             margin: 0; text-transform: uppercase; letter-spacing: 0.05em;
@@ -681,7 +656,7 @@
         <canvas id="mainCanvas"></canvas>
     </div>
 
-    <div id="footer-hint">将鼠标在年轮上停留，选择一个层<span id="active-layer-name"></div>
+    <div id="footer-hint">将鼠标在年轮上停留，选择一个层<span id="active-layer-name"></span></div>
 
     <!-- SVG Filters -->
     <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -714,7 +689,7 @@
             
             <!-- Bottom: Description & Link -->
             <div class="flex-grow flex flex-col justify-end">
-                <p id="modal-desc" class="text-gray-400 text-sm leading-relaxed mb-6 font-light border-t border-gray-800 pt-4">
+                <p id="modal-desc" class="text-gray-400 text-sm leading-relaxed mb-6 font-light border-t border-gray-800 pt-4"></p>
                 <div class="flex justify-end">
                     <button id="modal-project-btn" class="text-white border border-gray-600 px-5 py-2 text-xs font-mono tracking-widest hover:bg-white hover:text-black transition hidden">VIEW PROJECT ↗</button>
                 </div>
@@ -729,7 +704,7 @@
             <div id="lightbox-img-container" class="relative">
                 <div id="lightbox-placeholder" class="text-white font-mono border border-gray-700 p-20">IMAGE_VIEW</div>
             </div>
-            <p id="lightbox-caption" class="text-gray-500 font-mono text-xs mt-4 tracking-widest uppercase">
+            <p id="lightbox-caption" class="text-gray-500 font-mono text-xs mt-4 tracking-widest uppercase"></p>
         </div>
     </div>
 
@@ -738,9 +713,9 @@
         <!-- Content same as previous, hidden for brevity -->
         <div class="nav-bar">
             <div class="nav-links">
-                <span style="color:#00ffcc">PROJECTS 
-                <span onclick="navigateTo('exhibitions')">EXHIBITIONS
-                <span onclick="navigateTo('about')">ABOUT
+                <span style="color:#00ffcc">PROJECTS</span>
+                <span onclick="navigateTo('exhibitions')">EXHIBITIONS</span>
+                <span onclick="navigateTo('about')">ABOUT</span>
             </div>
         </div>
             <!-- Mobile nav toggle -->
@@ -1088,9 +1063,9 @@
     <div id="page-about" class="content-page">
         <div class="nav-bar">
             <div class="nav-links">
-                <span onclick="navigateTo('projects')">PROJECTS
-                <span onclick="navigateTo('exhibitions')">EXHIBITIONS
-                <span style="color:#00ffcc">ABOUT
+                <span onclick="navigateTo('projects')">PROJECTS</span>
+                <span onclick="navigateTo('exhibitions')">EXHIBITIONS</span>
+                <span style="color:#00ffcc">ABOUT</span>
             </div>
         </div>
 
@@ -1707,7 +1682,7 @@
                         <div class="max-w-4xl mx-auto">
                             <h3 class="text-white font-bold mb-4 border-l-2 border-emerald-500 pl-3">Video</h3>
                             <div class="aspect-video bg-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden">
-                                <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/Jlnb2bhOOrQ" title="Xiamen Oysters video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                                <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/Jlnb2bhOOrQ?autoplay=1&mute=1" title="Xiamen Oysters video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             </div>
                             <p class="text-gray-600 text-xs font-mono mt-3">Short film documenting the oyster project</p>
                         </div>
@@ -1804,31 +1779,34 @@
                     <!-- (Using page-level background video instead) -->
                     <!-- Block A: Meta + Hero Wide Shot (unified header module) -->
                     <section class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-24 border-b border-gray-900 pb-12">
-                        <!-- Left: Intro + Meta -->
-                        <div class="md:col-span-5 flex items-center">
-                            <div class="max-w-sm mb-4">
+                        <!-- Left: Intro + Meta (full-width on md+) -->
+                        <div class="md:col-span-12 flex flex-col justify-center">
+                            <div class="mb-4 max-w-4xl mx-auto">
                                 <p class="text-gray-300 font-light text-sm md:text-base leading-relaxed">They Breathe Under the Table listens to subtle breath and microbial activity. The installation translates exhaled CO₂ and fermentation into slow shifts of sound, light and movement.</p>
                             </div>
 
-                            <div class="project-meta">
-                                <div class="meta-item"><div class="meta-label">TYPE</div><div class="meta-value">Interactive installation</div></div>
-                                <div class="meta-item"><div class="meta-label">ROLE</div><div class="meta-value">Interaction design, sound & visual design</div></div>
-                                <div class="meta-item"><div class="meta-label">TOOLS</div><div class="meta-value">TouchDesigner, Arduino, breath sensor, speakers</div></div>
+                            <div class="project-meta max-w-4xl mx-auto px-4 md:px-0">
+                                <div class="meta-item">
+                                    <div class="meta-label">TYPE</div>
+                                    <div class="meta-value">Interactive installation</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-label">ROLE</div>
+                                    <div class="meta-value">Interaction design, sound & visual design</div>
+                                </div>
+                                <div class="meta-item">
+                                    <div class="meta-label">TOOLS</div>
+                                    <div class="meta-value">TouchDesigner, Arduino, breath sensor, speakers</div>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Right: Large Hero Image -->
-                        <div class="md:col-span-7 space-y-3 flex items-center">
-                            <div class="aspect-[4/3] bg-gray-900 border border-gray-800 cursor-zoom-in overflow-hidden relative group" onclick="openLightbox('assets/images/they breathe under the table/整体图.jpg')">
-                                <img src="assets/images/they breathe under the table/整体图.jpg" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
-                            </div>
-                            <p class="text-gray-600 text-xs font-mono">Installation view – the table as a quiet breathing island in the gallery.</p>
-                        </div>
+                        <!-- Right image placeholder removed so meta aligns with intro -->
                     </section>
 
                     <!-- Intro Text (Poetic) -->
-                    <section class="mb-24 max-w-3xl mx-auto">
-                        <div class="text-gray-300 font-light leading-relaxed text-sm md:text-base text-justify space-y-6">
+                    <section class="mb-24 max-w-5xl mx-auto px-4 md:px-0">
+                        <div class="text-gray-300 font-light leading-relaxed text-sm md:text-base text-left space-y-6">
                             <p>
                                 <em>They Breathe Under the Table</em> is an interactive installation that listens to something almost invisible: breath. A small sourdough culture hides beneath an ordinary table, quietly fermenting. As visitors lean in and breathe toward the sensor, their exhaled CO₂ wakes the microbes, triggering subtle shifts in sound, light and moving bread. The table becomes a breathing organism, where domestic furniture, living bacteria and human bodies share the same air.
                             
@@ -1836,6 +1814,14 @@
                                 By using local materials that respond to Fujian’s humid coastal climate, the work explores how life, matter and environment are entangled. What looks like a familiar home setting slowly turns uncanny, revealing the often-ignored dependencies between everyday comfort and microbial labour.
                             
                         </div>
+                    </section>
+
+                    <!-- Moved Hero Image -->
+                    <section class="mb-12 max-w-5xl mx-auto px-4 md:px-0">
+                        <div class="aspect-[4/3] bg-gray-900 border border-gray-800 cursor-zoom-in overflow-hidden relative group mx-auto md:max-w-[820px] w-full md:max-h-[520px] max-h-[360px]" onclick="openLightbox('assets/images/they breathe under the table/整体图.jpg')">
+                            <img src="assets/images/they breathe under the table/整体图.jpg" class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity duration-500 md:max-h-[520px] max-h-[360px]" />
+                        </div>
+                        <p class="text-gray-600 text-xs font-mono mt-3 text-center">Installation view；</p>
                     </section>
 
                     <!-- Block B: Interaction & Details (Interleaved) -->
@@ -1855,7 +1841,7 @@
                             
                             <!-- Sensor Detail Image -->
                             <div class="space-y-3">
-                                <div class="h-full bg-gray-900 border border-gray-800 cursor-zoom-in overflow-hidden relative group flex items-center justify-center" style="min-height:320px;" onclick="openLightbox('SENSOR_DETAIL')">
+                                <div class="h-full bg-gray-900 border border-gray-800 cursor-zoom-in overflow-hidden relative group flex items-center justify-center" style="min-height:240px;" onclick="openLightbox('SENSOR_DETAIL')">
                                      <img src="assets/images/they breathe under the table/发酵瓶.png" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
                                 </div>
                                 <p class="text-gray-600 text-xs font-mono">Breath sensor and sourdough culture hidden under the table.</p>
@@ -1871,7 +1857,7 @@
                             
                                <!-- Closer Installation View -->
                                <div class="space-y-3">
-                                 <div class="h-full bg-gray-900 border border-gray-800 cursor-zoom-in overflow-hidden relative group flex items-center justify-center" style="min-height:320px;" onclick="openLightbox('TABLE_CLOSE_UP')">
+                                 <div class="h-full bg-gray-900 border border-gray-800 cursor-zoom-in overflow-hidden relative group flex items-center justify-center" style="min-height:240px;" onclick="openLightbox('TABLE_CLOSE_UP')">
                                       <img src="assets/images/they breathe under the table/面包.jpg" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
                                   </div>
                                    <p class="text-gray-600 text-xs font-mono">Installation view – close-up of table surface and lighting.</p>
@@ -1896,7 +1882,7 @@
                     <section class="mb-24">
                         <h3 class="text-white font-bold mb-6 border-l-2 border-emerald-500 pl-3">Demo video</h3>
                         <div class="aspect-video bg-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden">
-                            <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/Z20HzWhbNBQ?enablejsapi=1&playsinline=1&rel=0&modestbranding=1" title="They Ferment Beneath the Table - demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                            <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/Z20HzWhbNBQ?enablejsapi=1&playsinline=1&rel=0&modestbranding=1&autoplay=1&mute=1" title="They Ferment Beneath the Table - demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <p class="text-gray-600 text-xs font-mono mt-3">Short documentation of the installation</p>
                     </section>
@@ -2022,7 +2008,7 @@
                         <div class="max-w-4xl mx-auto">
                             <h3 class="text-white font-bold mb-4 border-l-2 border-emerald-500 pl-3">Demo video</h3>
                             <div class="aspect-video bg-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden">
-                                <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/5U0iGzVXuFI" title="TRACES demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                                <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/5U0iGzVXuFI?autoplay=1&mute=1" title="TRACES demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                             </div>
                             <p class="text-gray-600 text-xs font-mono mt-3">Short demo of the installation</p>
                         </div>
@@ -2089,7 +2075,7 @@
                     <section class="mb-20">
                         <h4 class="text-white font-bold mb-3 border-l-2 border-emerald-500 pl-3">Demo Video</h4>
                         <div class="aspect-video bg-gray-900 border border-gray-800 flex items-center justify-center overflow-hidden mb-2 cursor-zoom-in">
-                            <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/5U0iGzVXuFI?enablejsapi=1&playsinline=1&rel=0&modestbranding=1" title="Chronicles of Time - demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                            <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/5U0iGzVXuFI?enablejsapi=1&playsinline=1&rel=0&modestbranding=1&autoplay=1&mute=1" title="Chronicles of Time - demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <p class="text-gray-600 text-xs font-mono">Short documentation of interaction and projection mapping.</p>
                     </section>
@@ -2164,7 +2150,7 @@
                         <div class="mb-8 mt-6">
                             <div class="max-w-4xl mx-auto">
                                 <div class="aspect-video bg-black border border-gray-800 flex items-center justify-center">
-                                    <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/I6Ql-mUPwkA?enablejsapi=1&playsinline=1&rel=0&modestbranding=1" title="Noah's Ark - video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                                    <iframe class="w-full h-full deferred-youtube" data-youtube-src="https://www.youtube-nocookie.com/embed/I6Ql-mUPwkA?enablejsapi=1&playsinline=1&rel=0&modestbranding=1&autoplay=1&mute=1" title="Noah's Ark - video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -2434,12 +2420,7 @@
             }, 800);
         };
         
-        window.navigateTo = function(targetKey) {
-            document.querySelectorAll('.content-page').forEach(page => page.classList.remove('active'));
-            setTimeout(() => {
-                document.getElementById('page-' + targetKey).classList.add('active');
-            }, 300);
-        }
+        
 
         function triggerTransition(ring) {
             appState = 'navigating';
@@ -2687,13 +2668,15 @@
         }
 
         function generateAboutContours(baseD, width = 300, height = 400) {
+            // Minimal, safe implementation: replace the group's paths with three contour copies
             const group = document.getElementById('about-contours');
             if (!group) return;
-            // preserve image href if present
+            // preserve existing image href if present
             const existingImg = group.querySelector('image');
             const imgHref = existingImg ? existingImg.getAttribute('href') : 'assets/images/简介.jpg';
+            // clear group
             while (group.firstChild) group.removeChild(group.firstChild);
-            // re-add image sized to 3:4
+            // re-add image sized to width/height
             const imgEl = document.createElementNS('http://www.w3.org/2000/svg', 'image');
             imgEl.setAttribute('href', imgHref);
             imgEl.setAttribute('x', '0'); imgEl.setAttribute('y', '0');
@@ -2702,29 +2685,7 @@
             imgEl.setAttribute('class', 'about-svg-image');
             imgEl.setAttribute('onclick', "openLightbox('" + imgHref + "')");
             group.appendChild(imgEl);
-            const centerX = width * 0.5, centerY = height * 0.5;
-            // stronger, more visible diffused contours
-            const contours = 8;
-            // remove any existing paths
-            Array.from(group.querySelectorAll('path')).forEach(n => n.remove());
-            // ensure image remains; if missing, add it clipped to #clip-about
-            const existingImg = group.querySelector('image');
-            const imgHref = existingImg ? existingImg.getAttribute('href') : 'assets/images/简介.jpg';
-            if (!existingImg) {
-                const imgEl = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-                imgEl.setAttribute('href', imgHref);
-                imgEl.setAttribute('clip-path', 'url(#clip-about)');
-                imgEl.setAttribute('width', '100%'); imgEl.setAttribute('height', '100%');
-                imgEl.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-                imgEl.setAttribute('class', 'project-img about-svg-image');
-                imgEl.setAttribute('onclick', "openLightbox('" + imgHref + "')");
-                group.appendChild(imgEl);
-            }
-            // create three contour layers
-            const inner = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-            inner.setAttribute('d', baseD);
-            inner.setAttribute('class', 'contour-path contour-inner');
-            inner.setAttribute('style', 'transform: scale(1);'); group.appendChild(inner);
+            // add three contours (inner, mid, outer)
             const inner = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             inner.setAttribute('d', baseD);
             inner.setAttribute('class', 'contour-path contour-inner');
@@ -2740,17 +2701,17 @@
             outer.setAttribute('class', 'contour-path contour-outer');
             outer.setAttribute('style', 'transform: scale(1.04); opacity: 0.3;');
             group.appendChild(outer);
-            const amp = 0.01; // wobble amplitude relative to baseScale
-            const centerX = 350, centerY = 250;
-            Array.from(group.children).forEach((p, idx) => {
-                const baseScale = parseFloat(p.dataset.baseScale || '1');
-                const phase = idx * 0.5;
-                const s = baseScale + Math.sin(timestamp * speed + phase) * amp;
-                p.setAttribute('transform', `translate(${centerX} ${centerY}) scale(${s}) translate(${-centerX} ${-centerY})`);
-                // slightly increase opacity when wobble peaks
-                const baseOpacity = Math.max(0.12, 0.6 - idx * 0.08);
-                const extra = (Math.sin(timestamp * speed + phase) + 1) * 0.03;
-                p.style.opacity = (baseOpacity + extra).toString();
+        }
+
+        // Animate about contours: simple subtle opacity wobble to avoid undefined variables elsewhere
+        function animateAboutContours(timestamp) {
+            const group = document.getElementById('about-contours');
+            if (!group) return;
+            const paths = group.querySelectorAll('path');
+            paths.forEach((p, i) => {
+                const base = 0.12 + i * 0.06;
+                const extra = Math.sin((timestamp * 0.001) + i) * 0.03;
+                p.style.opacity = (base + extra).toString();
             });
         }
 
@@ -2903,39 +2864,74 @@
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') toggleMobileMenu(false); });
     </script>
     <script>
-        // Deferred YouTube iframe loader: sets src at runtime with origin param to avoid player config errors.
-        // Enhanced to handle dynamically injected content (MutationObserver).
+        // Click-to-play YouTube loader
         (function(){
-            function setYouTubeSrc(iframe){
+            function buildPlayOverlay(iframe){
                 try{
-                    if(!iframe || iframe.dataset._ytLoaded) return;
-                    var src = iframe.getAttribute('data-youtube-src');
+                    var container = iframe.parentElement;
+                    if(!container) return;
+                    var cs = window.getComputedStyle(container).position;
+                    if(cs === 'static' || !cs) container.style.position = 'relative';
+
+                    if(container.querySelector('.yt-play-overlay')) return;
+
+                    var overlay = document.createElement('div');
+                    overlay.className = 'yt-play-overlay';
+                    overlay.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;cursor:pointer;background:rgba(0,0,0,0.22);transition:background .15s';
+
+                    var btn = document.createElement('div');
+                    btn.className = 'yt-play-button';
+                    btn.style.cssText = 'width:72px;height:72px;border-radius:999px;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,0.6)';
+                    btn.innerHTML = '<svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 28,16 0,32" fill="#00ffcc"/></svg>';
+
+                    overlay.appendChild(btn);
+                    overlay.addEventListener('click', function(){
+                        setYouTubeSrc(iframe, true);
+                        overlay.remove();
+                    });
+
+                    container.appendChild(overlay);
+                }catch(e){ console.warn('buildPlayOverlay error', e); }
+            }
+
+            function setYouTubeSrc(iframe, autoplay){
+                try{
+                    if(!iframe) return;
+                    if(iframe.dataset._ytLoaded) return;
+                    var src = iframe.getAttribute('data-youtube-src') || iframe.dataset.youtubeSrc;
                     if(!src) return;
                     var url = new URL(src, window.location.href);
                     if(!url.searchParams.has('enablejsapi')) url.searchParams.set('enablejsapi','1');
                     url.searchParams.set('origin', location.origin);
+                    if(autoplay){ url.searchParams.set('autoplay','1'); url.searchParams.set('mute','1'); }
                     iframe.src = url.toString();
                     iframe.dataset._ytLoaded = '1';
-                }catch(e){ console.warn('YouTube deferred load failed', e); }
+                }catch(e){ console.warn('setYouTubeSrc error', e); }
             }
 
-            function processAll(){
-                document.querySelectorAll('.deferred-youtube').forEach(function(ifr){ setYouTubeSrc(ifr); });
+            function prepareAll(){
+                document.querySelectorAll('.deferred-youtube').forEach(function(iframe){ buildPlayOverlay(iframe); });
             }
 
             document.addEventListener('DOMContentLoaded', function(){
-                processAll();
+                prepareAll();
                 var mo = new MutationObserver(function(mutations){
                     mutations.forEach(function(m){
                         m.addedNodes.forEach(function(node){
                             if(node.nodeType !== 1) return;
-                            if(node.matches && node.matches('.deferred-youtube')) setYouTubeSrc(node);
+                            if(node.matches && node.matches('.deferred-youtube')) buildPlayOverlay(node);
                             var els = node.querySelectorAll && node.querySelectorAll('.deferred-youtube');
-                            if(els && els.length) els.forEach(setYouTubeSrc);
+                            if(els && els.length) els.forEach(buildPlayOverlay);
                         });
                     });
                 });
                 mo.observe(document.body, { childList: true, subtree: true });
+            });
+
+            window.addEventListener('beforeunload', function(){
+                document.querySelectorAll('.deferred-youtube').forEach(function(iframe){
+                    try{ iframe.src = ''; iframe.removeAttribute('src'); delete iframe.dataset._ytLoaded; }catch(e){}
+                });
             });
         })();
     </script>
