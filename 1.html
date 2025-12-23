@@ -2615,7 +2615,8 @@
 		const rings = [];
         // background ring radii: increased spacing to make the overall ring system larger
         const bgRings = Array.from({ length: 12 }, (_, i) => 260 + i * 55);
-		const globalBaseOffset = Math.random() * 100;
+        // Use a fixed seed so About contour generation is deterministic across refreshes
+        const globalBaseOffset = 42; // previously Math.random() * 100
 
         // Concentric fillers to match the reference backdrop (scaled up)
         [75, 125, 169, 213, 256, 306, 356, 406, 456, 506].forEach((r, idx) => {
